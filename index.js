@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import pool from "./src/config/db.js";
+import userRoutes from "./src/routes/userRoute.js";
+import errorHandling from "./src/middlewares/errorHandler.js";
 
 dotenv.config();
 
@@ -10,13 +12,16 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 // -------------Middleware block------------
+
 app.use(express.json());
 app.use(cors());
 
 // -------- ROUTES ---------------
 
-// ------------ Error handling ----------------
+app.use("/api", userRoutes)
 
+// ------------ Error handling ----------------
+app.use(errorHandling)
 // --------- TESTING Database Connection
 
 app.get("/", async (req, res) => {
@@ -29,7 +34,5 @@ app.get("/", async (req, res) => {
 
 // -------- Server Running -----------
 app.listen(port, () => {
-  console.log(
-    chalk.bold.cyan(`Server is running on http://localhost:${port}`)
-  );
+  console.log(chalk.bold.cyan(`Server is running on http://localhost:${port}`));
 });
