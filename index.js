@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import chalk from "chalk";
+import pool from "./src/config/db.js";
 
 dotenv.config();
 
@@ -10,15 +11,25 @@ const port = process.env.PORT || 8000;
 
 // -------------Middleware block------------
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 // -------- ROUTES ---------------
 
 // ------------ Error handling ----------------
 
+// --------- TESTING Database Connection
+
+app.get("/", async (req, res) => {
+  const result = await pool.query("SELECT current_database()");
+  console.log("end");
+  res
+    .status(200)
+    .send(`The database name is : ${result.rows[0].current_database}`);
+});
+
 // -------- Server Running -----------
 app.listen(port, () => {
   console.log(
-    chalk.bold.green(`Server is running on http://localhost:${port}`)
+    chalk.bold.cyan(`Server is running on http://localhost:${port}`)
   );
 });
