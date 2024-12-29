@@ -2,7 +2,7 @@ import pool from "../config/db.js";
 
 export const getAllUserService = async () => {
   // get all users
-  const result = pool.query("SELECT * FROM users");
+  const result = await pool.query("SELECT * FROM users");
   return result.rows;
 };
 

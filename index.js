@@ -18,10 +18,10 @@ app.use(cors());
 
 // -------- ROUTES ---------------
 
-app.use("/api", userRoutes)
+app.use("/api", userRoutes);
 
 // ------------ Error handling ----------------
-app.use(errorHandling)
+app.use(errorHandling);
 // --------- TESTING Database Connection
 
 app.get("/", async (req, res) => {
