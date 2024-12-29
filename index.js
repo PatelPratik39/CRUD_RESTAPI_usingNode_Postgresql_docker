@@ -5,6 +5,7 @@ import chalk from "chalk";
 import pool from "./src/config/db.js";
 import userRoutes from "./src/routes/userRoute.js";
 import errorHandling from "./src/middlewares/errorHandler.js";
+import createUserTable from "./src/data/createUserTable.js";
 
 dotenv.config();
 
@@ -22,6 +23,10 @@ app.use("/api", userRoutes);
 
 // ------------ Error handling ----------------
 app.use(errorHandling);
+
+// Create table before startig server
+createUserTable();
+
 // --------- TESTING Database Connection
 
 app.get("/", async (req, res) => {
